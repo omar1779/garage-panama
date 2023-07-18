@@ -1,0 +1,11 @@
+.example-animation {
+    animation: fadeInOut 4s infinite;
+  }
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+.example-animation:hover{
+    animation: none;
+}
