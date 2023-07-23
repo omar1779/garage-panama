@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../context/authProvider";
+import { useNavigate } from "react-router-dom";
 function FormLogin() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -13,6 +15,7 @@ function FormLogin() {
     e.preventDefault();
     if (email && password) {
       auth.login(email, password);
+      navigate('/home')
     } else {
       setAlert("Debes llenar todos los campos para continuar");
     }

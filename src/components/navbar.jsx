@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,17 +7,22 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-
+import garage from '../../public/G.jpg'
 import { useService } from "../context/servicesProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function NavbarComponent() {
   const navigate = useNavigate();
   const service = useService();
-
   const changePageAndFilter = (e) => {
     service.filter(e.target.innerHTML);
+    setShowSidebar(!showSidebar)
     navigate("/service");
+  };
+  const [showSidebar, setShowSidebar] = useState(false);
+  const handleToggleSidebar = () => {
+    console.log('hola')
+    setShowSidebar((prevShowSidebar) => !prevShowSidebar);
   };
 
   return (
@@ -43,14 +48,16 @@ function NavbarComponent() {
                 GARAGE PANAMÁ
               </Link>
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleToggleSidebar}/>
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
+              show={showSidebar}
+              onHide={() => setShowSidebar(false)}
             >
               <Offcanvas.Header
-                closeButton
+                closeButton={true}
                 style={{
                   backgroundColor: "#404040",
                 }}
@@ -72,6 +79,7 @@ function NavbarComponent() {
                       textDecoration: "none",
                       color: "#000",
                     }}
+                    onClick={()=> setShowSidebar(!showSidebar)}
                   >
                     Inicio
                   </Link>
@@ -141,6 +149,7 @@ function NavbarComponent() {
                       textDecoration: "none",
                       color: "#000",
                     }}
+                    onClick={()=> setShowSidebar(!showSidebar)}
                   >
                     Vehiculos a la venta
                   </Link>
@@ -165,7 +174,7 @@ function NavbarComponent() {
                       Facebook
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link href="#action2">Sobre nosotros</Nav.Link>
+                  <img src={garage} alt="garage panama" />
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

@@ -10,6 +10,7 @@ import {
 import { db } from "../firebase/firebase.config";
 import { collection, addDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 /* Creating a context object. */
 export const authContext = createContext();
 /**
@@ -23,6 +24,7 @@ export const useAuth = () => {
   return context;
 };
 export function AuthProvider({ children }) {
+  const navigate = useNavigate()
   const [user, setUser] = useState("");
   /* A hook that is called when the component is mounted and when the component is updated. */
   useEffect(() => {
@@ -64,7 +66,8 @@ export function AuthProvider({ children }) {
    */
   const loginWithGoogle = async () => {
     const responseGoogle = new GoogleAuthProvider();
-    return await signInWithPopup(auth, responseGoogle);
+    await signInWithPopup(auth, responseGoogle);
+    navigate('/home')
   };
   /**
    * The logout function is an asynchronous function that calls the signOut function and logs the

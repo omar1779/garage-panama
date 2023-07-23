@@ -33,6 +33,7 @@ function LoginPage() {
   const handleGoogle = () => {
     if(name && lastname && number){
       auth.loginWithGoogle()
+      navigate('/home')
     }else{
       setAlert("Primero debes llenar los primeros tres campos")
     }
